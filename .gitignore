@@ -1,5 +1,4 @@
-\.idea
-\.venv
-\.__pycahe__
-\.env
-\.sqlite
+.gitignore/
+.idea/
+__pycache__/
+.env/
