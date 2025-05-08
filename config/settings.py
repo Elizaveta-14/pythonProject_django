@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+
+from django.conf.global_settings import MEDIA_URL
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -83,7 +85,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         "NAME": os.getenv("NAME"),
         "USER": os.getenv("USER"),
         "PASSWORD": os.getenv("PASSWORD"),
@@ -124,7 +126,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+MEDIA_URL = "media/"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
