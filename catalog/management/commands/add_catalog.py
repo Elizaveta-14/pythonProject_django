@@ -29,4 +29,4 @@ class Command(BaseCommand):
             if created:
                 self.stdout.write(self.style.SUCCESS(f'Successfully added product: {product.name}'))
             else:
-                self.stdout.write(self.style.WARNING(f'successfully added product: {product.name}'))
+                self.stdout.write(self.style.WARNING(f'Product already exists: {product.name}'))
