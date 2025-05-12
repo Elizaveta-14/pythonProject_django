@@ -29,7 +29,7 @@ print("PASSWORD", os.getenv("PASSWORD"))
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY="django-insecure-=b9m+ml3w*@tb-i$hl@h*qkx83lsig)6obf#l($x4wtmh*4^#^"
+SECRET_KEY = "django-insecure-=b9m+ml3w*@tb-i$hl@h*qkx83lsig)6obf#l($x4wtmh*4^#^"
 print(SECRET_KEY)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.getenv("DEBUG") == "True" else False
@@ -127,6 +127,7 @@ USE_I18N = True
 USE_TZ = True
 
 MEDIA_URL = "media/"
+MEDIA_ROOT = "media/"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
