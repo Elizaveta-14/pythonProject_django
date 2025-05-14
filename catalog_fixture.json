@@ -1,0 +1,23 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "напитки",
+        "description": "газированные/негазированные"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "name": "телефон",
+        "description": "sumsung",
+        "image": "",
+        "category": 1,
+        "price": 20000,
+        "created_at": "2025-05-08",
+        "updated_at": "2025-05-08"
+    }
+}
+]
