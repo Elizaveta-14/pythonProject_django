@@ -24,13 +24,15 @@
 
 <div class="container">
     <div class="row text-center">
-        <div class="col-3">
-            <div class="card mb-4 box-shadow">
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="{{ product.imge.url }}" class ="card-img=top" alt=" {{ product.name }}">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">Удобный сервис рассылок</h4>
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">$ 140</h1>
+                    <p class="text-start mt-2">{{ product.description|truncatechars:100 }} </p>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                         <li>- Неограниченная лицензия</li>
                         <li>- Поддержка</li>

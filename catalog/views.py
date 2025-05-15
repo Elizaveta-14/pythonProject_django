@@ -6,8 +6,10 @@ from django.shortcuts import render , get_object_or_404
 from catalog.models import Product
 
 
-def home(requests):
-    return render(requests, template_name="catalog/home.html")
+def home(request):
+    products = Product.objects.all()
+    context = {"products": products}
+    return render(request, "catalog/home.html", context)
 
 
 def contacts(requests):
