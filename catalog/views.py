@@ -1,38 +1,55 @@
-# Create your views here.
-
+from django.views.generic import ListView,DetailView,CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
-from django.shortcuts import render , get_object_or_404
 
 from catalog.models import Product
 
 
-def home(request):
-    products = Product.objects.all()
-    context = {"products": products}
-    return render(request, "catalog/home.html", context)
+class HomeListView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
+    context_object_name = 'products'
 
 
-def contacts(requests):
-    return render(requests, template_name="catalog/contacts.html")
+class ContactsListView(ListView):
+    model = Product
+    template_name = 'catalog/contacts.html'
 
 
-def contact(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        phone = request.POST.get("phone")
-        message = request.POST.get("message")
-
-        return HttpResponse(f"Спасибо {name}! Сообщение получено")
-    return render(request, "contacts.html")
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/product_list.html'
+    context_object_name = 'products'
 
 
-def products_list(request):
-    products = Product.objects.all()
-    context = {"products": products}
-    return render(request, "products_list.html", context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'products'
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        self.object.views_counter += 1
+        self.object.save()
+        return self.object
 
 
-def products_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {'product': product}
-    return render(request, 'products_detail.html', context)
+class ProductCreateView(CreateView):
+    model = Product
+    fields = ['name', 'description', 'image', 'category', 'price']
+    success_url = reverse_lazy('catalog:products_list')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = ['name', 'description', 'image', 'category', 'price']
+    success_url = reverse_lazy('catalog:products_list')
+
+    def get_success_url(self):
+        return reverse('catalog:products_detail', args=[self.kwargs.get('pk')])
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:products_list')
