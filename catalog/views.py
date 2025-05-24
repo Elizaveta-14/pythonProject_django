@@ -2,7 +2,8 @@ from django.views.generic import ListView,DetailView,CreateView, UpdateView, Del
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from catalog.forms import ProductForm
 from catalog.models import Product
 
 
@@ -10,6 +11,8 @@ class HomeListView(ListView):
     model = Product
     template_name = 'catalog/home.html'
     context_object_name = 'products'
+
+
 
 
 class ContactsListView(ListView):
@@ -35,19 +38,27 @@ class ProductDetailView(DetailView):
         return self.object
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(CreateView,LoginRequiredMixin):
     model = Product
     fields = ['name', 'description', 'image', 'category', 'price']
+    form_class = ProductForm
     success_url = reverse_lazy('catalog:products_list')
 
 
-class ProductUpdateView(UpdateView):
+
+class ProductUpdateView(UpdateView,LoginRequiredMixin):
     model = Product
     fields = ['name', 'description', 'image', 'category', 'price']
+    form_class = ProductForm
     success_url = reverse_lazy('catalog:products_list')
 
     def get_success_url(self):
         return reverse('catalog:products_detail', args=[self.kwargs.get('pk')])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
 
 
 class ProductDeleteView(DeleteView):

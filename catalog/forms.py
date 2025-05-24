@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from catalog.models import Product
 
 
+
 class ProductForm(ModelForm):
     forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 
