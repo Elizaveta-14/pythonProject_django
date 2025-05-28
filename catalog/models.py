@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 from django.db import models
 from django.db.models import CharField
-
+from users.models import User
 from django.db import models
 
 class MyModel(models.Model):
@@ -41,6 +41,7 @@ class Product(models.Model):
         auto_now=True, verbose_name="дата последнего изменения"
     )
     views_counter = models.PositiveIntegerField(default=0)
+    owner = models.ForeignKey(User, verbose_name='имя владельца', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
