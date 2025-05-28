@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from catalog.models import Product
-
+from django import forms
 
 
 class ProductForm(ModelForm):
@@ -66,3 +66,15 @@ class ProductForm(ModelForm):
         if purchase_price < 0:
             raise ValidationError('цена не может быть отрицательной')
         return purchase_price
+
+
+class ProductModeratorForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ["is_available"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control"
+        self.fields["is_available"].widget.attrs.update({"class": "form-check"})
