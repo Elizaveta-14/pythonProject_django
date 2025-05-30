@@ -41,6 +41,7 @@ class Product(models.Model):
         auto_now=True, verbose_name="дата последнего изменения"
     )
     views_counter = models.PositiveIntegerField(default=0)
+    is_available = models.BooleanField(default=False, verbose_name="Доступность в каталоге")
     owner = models.ForeignKey(User, verbose_name='имя владельца', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
@@ -51,4 +52,8 @@ class Product(models.Model):
         verbose_name_plural = "продукты"
         ordering = [
             "name",
+        ]
+        permissions = [
+            ("can_unpublish_product", "Can unpublish product"),
+            ("remove_any_product", "Remove any product"),
         ]
